@@ -62,10 +62,10 @@ four-bytes-per-token estimate is **524,067 tokens avoided**, and protected edits
 were prevented **2/2**. These are low-confidence byte-based estimates, not API
 billing measurements. See the [sanitized benchmark summary](docs/benchmark-summary.md).
 
-## Quick start from source
+## Installation
 
-The npm and signed binary distributions are not published yet. Build from a
-cloned checkout with Rust 1.85 or later.
+Until the first signed GitHub release and npm publication are complete, build
+from a cloned checkout with Rust 1.85 or later.
 
 ### macOS and Linux
 
@@ -179,7 +179,8 @@ npm run support:check
 
 The canonical product interfaces are English-only. See [SECURITY.md](SECURITY.md)
 for private vulnerability reporting and [release readiness](docs/release-readiness.md)
-for the remaining GA evidence.
+for the remaining GA evidence. Maintainers should follow the
+[signed release and npm publishing guide](docs/publishing.md).
 
 ## License
 

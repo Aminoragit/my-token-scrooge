@@ -1,0 +1,103 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+
+jobs:
+  build:
+    name: build (${{ matrix.platform }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: linux-x64
+            runner: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            binary: mts
+          - platform: linux-arm64
+            runner: ubuntu-24.04-arm
+            target: aarch64-unknown-linux-gnu
+            binary: mts
+          - platform: darwin-x64
+            runner: macos-15-intel
+            target: x86_64-apple-darwin
+            binary: mts
+          - platform: darwin-arm64
+            runner: macos-15
+            target: aarch64-apple-darwin
+            binary: mts
+          - platform: win32-x64
+            runner: windows-latest
+            target: x86_64-pc-windows-msvc
+            binary: mts.exe
+          - platform: win32-arm64
+            runner: windows-11-arm
+            target: aarch64-pc-windows-msvc
+            binary: mts.exe
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: dtolnay/rust-toolchain@e43eeffd51aefeea929f4ea14e09fd077153e788 # 1.94.1
+        with:
+          targets: ${{ matrix.target }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - name: Validate tag version
+        run: node -e "const expected = 'v' + require('./package.json').version; if (process.env.GITHUB_REF_NAME !== expected) throw new Error('Expected tag ' + expected);"
+      - name: Build and smoke test
+        run: cargo run --release --locked --target ${{ matrix.target }} --bin mts -- --version
+      - name: Stage release files
+        run: |
+          node scripts/stage-platform-package.mjs ${{ matrix.platform }} target/${{ matrix.target }}/release/${{ matrix.binary }} npm/platform-packages/${{ matrix.platform }}
+          node -e "const fs = require('fs'); fs.mkdirSync('dist'); fs.copyFileSync(process.argv[1], process.argv[2]);" target/${{ matrix.target }}/release/${{ matrix.binary }} dist/mts-${{ matrix.platform }}${{ startsWith(matrix.platform, 'win32-') && '.exe' || '' }}
+          npm pack npm/platform-packages/${{ matrix.platform }} --pack-destination dist
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: release-${{ matrix.platform }}
+          path: dist/*
+          if-no-files-found: error
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      attestations: write
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          pattern: release-*
+          path: dist
+          merge-multiple: true
+      - name: Generate checksums
+        run: cd dist && sha256sum *.tgz mts-* > SHA256SUMS
+      - uses: actions/attest@f7c74d28b9d84cb8768d0b8ca14a4bac6ef463e6 # v4.2.0
+        with:
+          subject-checksums: dist/SHA256SUMS
+      - uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2, cosign v3.0.6
+      - name: Sign and verify release files
+        run: |
+          for artifact in dist/*.tgz dist/mts-* dist/SHA256SUMS; do
+            cosign sign-blob --yes --bundle "$artifact.sigstore.json" "$artifact"
+            cosign verify-blob \
+              --bundle "$artifact.sigstore.json" \
+              --certificate-identity-regexp '^https://github\.com/Aminoragit/my-token-scrooge/\.github/workflows/release\.yml@refs/tags/v[0-9]+\.[0-9]+\.[0-9]+$' \
+              --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+              "$artifact"
+          done
+      - name: Publish GitHub release
+        run: gh release create "$GITHUB_REF_NAME" dist/* --verify-tag --generate-notes --title "my-token-scrooge $GITHUB_REF_NAME"
+        env:
+          GH_TOKEN: ${{ github.token }}

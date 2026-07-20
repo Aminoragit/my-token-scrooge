@@ -1,0 +1,19 @@
+{
+  "target_id": "rovo-dev-cli",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [
+      "rovodev",
+      "rovo"
+    ],
+    "markers": [
+      "rovo-dev-cli"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

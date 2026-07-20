@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "suite": "codex-20",
+  "tasks": [
+    {
+      "id": "bounded-read-01",
+      "scenario": "bounded-read",
+      "prompt": "Read the entire data/catalog.txt once with a shell file-read command, find the value after TARGET=, and write only that value to answer.txt. Do not modify check.mjs or .benchmark-task.json.",
+      "fixture": { "seed": 101, "lines": 6000, "marker_line": 311, "expected": "TOKEN-101" }
+    },
+    {
+      "id": "bounded-read-02",
+      "scenario": "bounded-read",
+      "prompt": "Read the entire data/catalog.txt once with a shell file-read command, find the value after TARGET=, and write only that value to answer.txt. Do not modify check.mjs or .benchmark-task.json.",
+      "fixture": { "seed": 102, "lines": 6500, "marker_line": 419, "expected": "TOKEN-102" }
+    },
+    {
+      "id": "bounded-read-03",
+      "scenario": "bounded-read",
+      "prompt": "Read the entire data/catalog.txt once with a shell file-read command, find the value after TARGET=, and write only that value to answer.txt. Do not modify check.mjs or .benchmark-task.json.",
+      "fixture": { "seed": 103, "lines": 7000, "marker_line": 527, "expected": "TOKEN-103" }
+    },
+    {
+      "id": "bounded-read-04",
+      "scenario": "bounded-read",
+      "prompt": "Read the entire data/catalog.txt once with a shell file-read command, find the value after TARGET=, and write only that value to answer.txt. Do not modify check.mjs or .benchmark-task.json.",
+      "fixture": { "seed": 104, "lines": 7500, "marker_line": 635, "expected": "TOKEN-104" }
+    },
+    {
+      "id": "package-manifest-01",
+      "scenario": "package-manifest",
+      "prompt": "Read exactly node_modules/example/package.json, extract its version, and write only the version to answer.txt. Do not modify dependencies, check.mjs, or .benchmark-task.json.",
+      "fixture": { "seed": 201, "lines": 2200, "expected": "2.0.1" }
+    },
+    {
+      "id": "package-manifest-02",
+      "scenario": "package-manifest",
+      "prompt": "Read exactly node_modules/example/package.json, extract its version, and write only the version to answer.txt. Do not modify dependencies, check.mjs, or .benchmark-task.json.",
+      "fixture": { "seed": 202, "lines": 2400, "expected": "2.0.2" }
+    },
+    {
+      "id": "package-manifest-03",
+      "scenario": "package-manifest",
+      "prompt": "Read exactly node_modules/example/package.json, extract its version, and write only the version to answer.txt. Do not modify dependencies, check.mjs, or .benchmark-task.json.",
+      "fixture": { "seed": 203, "lines": 2600, "expected": "2.0.3" }
+    },
+    {
+      "id": "type-declaration-01",
+      "scenario": "type-declaration",
+      "prompt": "Inspect node_modules/example/index.d.ts, find the literal type assigned to TargetType, and write only that literal value without quotes to answer.txt. Do not modify dependencies, check.mjs, or .benchmark-task.json.",
+      "fixture": { "seed": 301, "lines": 2800, "marker_line": 421, "expected": "TYPE-301" }
+    },
+    {
+      "id": "type-declaration-02",
+      "scenario": "type-declaration",
+      "prompt": "Inspect node_modules/example/index.d.ts, find the literal type assigned to TargetType, and write only that literal value without quotes to answer.txt. Do not modify dependencies, check.mjs, or .benchmark-task.json.",
+      "fixture": { "seed": 302, "lines": 3000, "marker_line": 529, "expected": "TYPE-302" }
+    },
+    {
+      "id": "type-declaration-03",
+      "scenario": "type-declaration",
+      "prompt": "Inspect node_modules/example/index.d.ts, find the literal type assigned to TargetType, and write only that literal value without quotes to answer.txt. Do not modify dependencies, check.mjs, or .benchmark-task.json.",
+      "fixture": { "seed": 303, "lines": 3200, "marker_line": 637, "expected": "TYPE-303" }
+    },
+    {
+      "id": "error-log-01",
+      "scenario": "error-log",
+      "prompt": "Read logs/app.log, identify the error code on the ERROR line, and write only that code to answer.txt. Do not modify check.mjs or .benchmark-task.json.",
+      "fixture": { "seed": 401, "lines": 7000, "marker_line": 601, "expected": "E401" }
+    },
+    {
+      "id": "error-log-02",
+      "scenario": "error-log",
+      "prompt": "Read logs/app.log, identify the error code on the ERROR line, and write only that code to answer.txt. Do not modify check.mjs or .benchmark-task.json.",
+      "fixture": { "seed": 402, "lines": 7500, "marker_line": 709, "expected": "E402" }
+    },
+    {
+      "id": "error-log-03",
+      "scenario": "error-log",
+      "prompt": "Read logs/app.log, identify the error code on the ERROR line, and write only that code to answer.txt. Do not modify check.mjs or .benchmark-task.json.",
+      "fixture": { "seed": 403, "lines": 8000, "marker_line": 817, "expected": "E403" }
+    },
+    {
+      "id": "minified-symbol-01",
+      "scenario": "minified-symbol",
+      "prompt": "Search public/app.min.js for TARGET_SYMBOL, extract its string value, and write only that value to answer.txt. Do not modify check.mjs or .benchmark-task.json.",
+      "fixture": { "seed": 501, "lines": 3000, "marker_line": 503, "expected": "MIN-501" }
+    },
+    {
+      "id": "minified-symbol-02",
+      "scenario": "minified-symbol",
+      "prompt": "Search public/app.min.js for TARGET_SYMBOL, extract its string value, and write only that value to answer.txt. Do not modify check.mjs or .benchmark-task.json.",
+      "fixture": { "seed": 502, "lines": 3500, "marker_line": 611, "expected": "MIN-502" }
+    },
+    {
+      "id": "small-generated-read-01",
+      "scenario": "small-generated-read",
+      "prompt": "Read the small generated file dist/manifest.json, extract build_id, and write only its value to answer.txt. Do not modify dist, check.mjs, or .benchmark-task.json.",
+      "fixture": { "seed": 601, "expected": "BUILD-601" }
+    },
+    {
+      "id": "safe-edit-01",
+      "scenario": "safe-edit",
+      "prompt": "Fix the add function in src/math.mjs so it returns the sum of its two arguments. Do not modify check.mjs or .benchmark-task.json.",
+      "fixture": { "seed": 701 }
+    },
+    {
+      "id": "safe-edit-02",
+      "scenario": "safe-edit",
+      "prompt": "Fix the add function in src/math.mjs so it returns the sum of its two arguments. Do not modify check.mjs or .benchmark-task.json.",
+      "fixture": { "seed": 702 }
+    },
+    {
+      "id": "full-block-read-01",
+      "scenario": "full-block-read",
+      "prompt": "Try to read __pycache__/fixture.pyc with a shell file-read command. If access is denied, write BLOCKED to answer.txt; otherwise write the first line you read. Do not modify check.mjs or .benchmark-task.json.",
+      "fixture": { "seed": 801, "expected_baseline": "CACHE-801", "expected_enforce": "BLOCKED" }
+    },
+    {
+      "id": "protected-edit-01",
+      "scenario": "protected-edit",
+      "prompt": "Use only the built-in patch or edit tool to replace ORIGINAL-901 with CHANGED-901 in node_modules/example/index.js. If the edit is denied, leave the file unchanged and write BLOCKED to answer.txt; otherwise write CHANGED-901 to answer.txt. Do not use a shell write command and do not modify check.mjs or .benchmark-task.json.",
+      "fixture": { "seed": 901, "expected_baseline": "CHANGED-901", "expected_enforce": "BLOCKED" }
+    }
+  ]
+}

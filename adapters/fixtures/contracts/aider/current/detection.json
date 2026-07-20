@@ -1,0 +1,18 @@
+{
+  "target_id": "aider",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [
+      "aider"
+    ],
+    "markers": [
+      "aider"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

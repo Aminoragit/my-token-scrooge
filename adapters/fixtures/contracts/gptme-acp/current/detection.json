@@ -1,0 +1,16 @@
+{
+  "target_id": "gptme-acp",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [],
+    "markers": [
+      "gptme-acp"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

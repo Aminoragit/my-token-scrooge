@@ -1,0 +1,16 @@
+{
+  "target_id": "jetbrains-junie",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [],
+    "markers": [
+      "jetbrains-junie"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

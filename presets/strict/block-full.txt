@@ -1,0 +1,9 @@
+# MTS strict FULL BLOCK policy
+__pycache__/** | all | Python cache files are not useful agent context
+**/*.pyc | all | Compiled Python bytecode is not useful source context
+.git/objects/** | all | Git object storage must not be accessed directly
+node_modules/** | write,edit | Installed dependencies must not be modified directly
+dist/** | write,edit | Generated distribution files must not be edited directly
+build/** | write,edit | Generated build files must not be edited directly
+**/*.min.js.map | read | Source maps are too large for direct model context
+

@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "suite": "smoke",
+  "tasks": [
+    {
+      "id": "dependency-read",
+      "operation": "read",
+      "resource": "node_modules/example/index.js",
+      "expected_decision": "PARTIAL_BLOCK"
+    },
+    {
+      "id": "dependency-edit",
+      "operation": "edit",
+      "resource": "node_modules/example/index.js",
+      "expected_decision": "FULL_BLOCK"
+    }
+  ]
+}
+

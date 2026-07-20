@@ -1,0 +1,46 @@
+# Generated from crates/mts-harnesses/src/lib.rs by adapters/generate.mjs.
+schema_version = 1
+id = "openclaw"
+display_name = "OpenClaw Local Agent"
+vendor = "unknown"
+execution_surface = "OpenClaw Local Agent"
+families = ["NATIVE_PLUGIN", "SANDBOX_WORKSPACE"]
+commands = ["openclaw"]
+markers = ["openclaw"]
+installation_form = "Gateway or plugin execution policy"
+policy_dir = "~/.mts/harnesses/openclaw"
+minimum_mts_version = "0.1.0"
+owner = "MTS adapter maintainers"
+source = "crates/mts-harnesses/src/lib.rs"
+default_mode = "SHADOW"
+capability_grade = "UNVERIFIED"
+verification_status = "UNVERIFIED"
+planned_capability = "STRONG"
+install_dry_run = true
+install = true
+uninstall = true
+deployment = "COPY"
+owned_files = ["block-full.txt", "block-partial.txt", "adapter.json", "install-manifest.json"]
+fixture_dir = "fixtures/contracts/openclaw/current"
+doctor_template = "Detection: {detection}\nVersion: {version}\nIntegration: {integration}\nPolicy files: {policy_files}\nRecommended mode: SHADOW"
+
+[probe]
+version_args = ["--version"]
+help_args = ["--help"]
+contract = "fixtures/contracts/openclaw/current"
+
+[capabilities]
+read = "UNVERIFIED"
+write = "UNVERIFIED"
+edit = "UNVERIFIED"
+shell = "UNVERIFIED"
+rewrite_input = false
+replace_output = false
+remote_executor = false
+
+[honesty]
+live_verified = false
+unknown_version_mode = "SHADOW"
+mcp_is_enforcement_boundary = false
+unknown_internal_tools = true
+policy_files_are_physical_copies = true

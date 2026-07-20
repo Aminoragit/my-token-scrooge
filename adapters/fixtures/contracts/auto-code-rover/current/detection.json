@@ -1,0 +1,19 @@
+{
+  "target_id": "auto-code-rover",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [
+      "auto-code-rover",
+      "acr"
+    ],
+    "markers": [
+      "auto-code-rover"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

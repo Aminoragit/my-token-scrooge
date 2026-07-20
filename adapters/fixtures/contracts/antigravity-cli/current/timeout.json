@@ -1,0 +1,13 @@
+{
+  "target_id": "antigravity-cli",
+  "case": "timeout",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "elapsed_ms": 30001
+  },
+  "expected": {
+    "decision": "SAFE_ERROR",
+    "original_operation_executes": false
+  }
+}

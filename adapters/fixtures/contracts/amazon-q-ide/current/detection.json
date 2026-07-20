@@ -1,0 +1,16 @@
+{
+  "target_id": "amazon-q-ide",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [],
+    "markers": [
+      "amazon-q-ide"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

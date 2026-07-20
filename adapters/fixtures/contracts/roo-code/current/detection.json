@@ -1,0 +1,16 @@
+{
+  "target_id": "roo-code",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [],
+    "markers": [
+      "roo-code"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

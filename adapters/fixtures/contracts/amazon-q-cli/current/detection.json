@@ -1,0 +1,19 @@
+{
+  "target_id": "amazon-q-cli",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [
+      "q",
+      "amazon-q"
+    ],
+    "markers": [
+      "amazon-q-cli"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

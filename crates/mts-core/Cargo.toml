@@ -1,0 +1,11 @@
+[package]
+name = "mts-core"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Deterministic policy core for my-token-scrooge"
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]

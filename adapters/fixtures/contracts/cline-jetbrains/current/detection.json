@@ -1,0 +1,16 @@
+{
+  "target_id": "cline-jetbrains",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [],
+    "markers": [
+      "cline-jetbrains"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

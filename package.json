@@ -1,0 +1,40 @@
+{
+  "name": "my-token-scrooge",
+  "version": "0.1.0",
+  "description": "A local context firewall for AI coding harnesses",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aminoragit/my-token-scrooge.git"
+  },
+  "homepage": "https://github.com/Aminoragit/my-token-scrooge#readme",
+  "bugs": {
+    "url": "https://github.com/Aminoragit/my-token-scrooge/issues"
+  },
+  "type": "module",
+  "bin": {
+    "mts": "npm/bin/mts.js"
+  },
+  "files": [
+    "npm/bin/mts.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "cargo build --release --bin mts",
+    "test": "node --test npm/test/*.test.js",
+    "pack:check": "npm pack --dry-run",
+    "support:check": "node scripts/generate-support-matrix.mjs --check"
+  },
+  "optionalDependencies": {
+    "@my-token-scrooge/linux-x64": "0.1.0",
+    "@my-token-scrooge/linux-arm64": "0.1.0",
+    "@my-token-scrooge/darwin-x64": "0.1.0",
+    "@my-token-scrooge/darwin-arm64": "0.1.0",
+    "@my-token-scrooge/win32-x64": "0.1.0",
+    "@my-token-scrooge/win32-arm64": "0.1.0"
+  }
+}

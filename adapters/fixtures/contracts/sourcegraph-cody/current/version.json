@@ -1,0 +1,13 @@
+{
+  "target_id": "sourcegraph-cody",
+  "case": "version",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "version_output": "unknown"
+  },
+  "expected": {
+    "capability_grade": "UNVERIFIED",
+    "mode": "SHADOW"
+  }
+}

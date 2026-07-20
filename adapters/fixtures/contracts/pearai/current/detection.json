@@ -1,0 +1,18 @@
+{
+  "target_id": "pearai",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [
+      "pearai"
+    ],
+    "markers": [
+      "pearai"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

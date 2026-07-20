@@ -1,0 +1,4 @@
+# MTS minimal PARTIAL BLOCK policy
+node_modules/**/*.d.ts | read | limit | max_lines=200,max_bytes=65536 | Limit type declaration context
+**/*.log | read | errors-only | max_matches=100,before=3,after=8 | Return error regions only
+

@@ -1,0 +1,10 @@
+[package]
+name = "mts-harnesses"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Static harness registry and physical policy artifacts for my-token-scrooge"
+
+[lib]
+path = "src/lib.rs"
+

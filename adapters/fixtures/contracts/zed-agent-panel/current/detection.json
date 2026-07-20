@@ -1,0 +1,18 @@
+{
+  "target_id": "zed-agent-panel",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [
+      "zed"
+    ],
+    "markers": [
+      "zed-agent-panel"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

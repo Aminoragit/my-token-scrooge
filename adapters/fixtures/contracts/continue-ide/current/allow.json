@@ -1,0 +1,14 @@
+{
+  "target_id": "continue-ide",
+  "case": "allow",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "operation": "read",
+    "resource": "README.md"
+  },
+  "expected": {
+    "decision": "ALLOW",
+    "original_operation_executes": true
+  }
+}

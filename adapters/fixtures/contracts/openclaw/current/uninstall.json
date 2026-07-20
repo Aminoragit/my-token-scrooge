@@ -1,0 +1,13 @@
+{
+  "target_id": "openclaw",
+  "case": "uninstall",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "owned_files_only": true
+  },
+  "expected": {
+    "removes_owned_files": true,
+    "preserves_unowned_files": true
+  }
+}

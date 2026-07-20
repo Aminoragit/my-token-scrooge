@@ -1,0 +1,13 @@
+{
+  "target_id": "crush",
+  "case": "unknown-version",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "detected_version": "unknown"
+  },
+  "expected": {
+    "capability_grade": "UNVERIFIED",
+    "mode": "SHADOW"
+  }
+}

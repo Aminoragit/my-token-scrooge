@@ -1,0 +1,6 @@
+# MTS balanced PARTIAL BLOCK policy
+node_modules/** | read,search | search-only | max_matches=40,context_lines=3,file_limit=20 | Search dependencies without loading the full tree
+**/*.log | read | errors-only | max_matches=100,before=3,after=8 | Return error regions only
+**/*.min.js | read | symbol-only | max_matches=30 | Search symbols instead of loading minified code
+**/* | read | limit | max_lines=1000,max_bytes=262144 | Bound unusually large reads
+

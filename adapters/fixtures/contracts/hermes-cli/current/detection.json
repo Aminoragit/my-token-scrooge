@@ -1,0 +1,18 @@
+{
+  "target_id": "hermes-cli",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [
+      "hermes"
+    ],
+    "markers": [
+      "hermes-cli"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

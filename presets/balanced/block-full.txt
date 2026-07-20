@@ -1,0 +1,8 @@
+# MTS balanced FULL BLOCK policy
+__pycache__/** | read,write,edit | Python cache files are not useful agent context
+**/*.pyc | read,write,edit | Compiled Python bytecode is not useful source context
+.git/objects/** | read,write,edit | Git object storage must not be read directly
+node_modules/** | write,edit | Installed dependencies must not be modified directly
+dist/** | write,edit | Generated distribution files must not be edited directly
+build/** | write,edit | Generated build files must not be edited directly
+

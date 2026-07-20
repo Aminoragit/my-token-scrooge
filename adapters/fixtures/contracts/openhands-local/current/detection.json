@@ -1,0 +1,18 @@
+{
+  "target_id": "openhands-local",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [
+      "openhands"
+    ],
+    "markers": [
+      "openhands-local"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

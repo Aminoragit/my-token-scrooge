@@ -1,0 +1,14 @@
+{
+  "target_id": "freebuff",
+  "case": "install",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "dry_run": true
+  },
+  "expected": {
+    "action": "PREVIEW",
+    "default_mode": "SHADOW",
+    "deployment": "COPY"
+  }
+}

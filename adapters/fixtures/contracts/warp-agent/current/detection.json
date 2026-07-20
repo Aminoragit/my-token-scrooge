@@ -1,0 +1,18 @@
+{
+  "target_id": "warp-agent",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [
+      "warp"
+    ],
+    "markers": [
+      "warp-agent"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

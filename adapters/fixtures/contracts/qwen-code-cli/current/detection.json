@@ -1,0 +1,19 @@
+{
+  "target_id": "qwen-code-cli",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [
+      "qwen",
+      "qwen-code"
+    ],
+    "markers": [
+      "qwen-code-cli"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

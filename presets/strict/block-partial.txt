@@ -1,0 +1,7 @@
+# MTS strict PARTIAL BLOCK policy
+node_modules/** | read,search | search-only | max_matches=30,context_lines=2,file_limit=15 | Search dependencies without loading the full tree
+vendor/** | read,search | search-only | max_matches=30,context_lines=2,file_limit=15 | Search vendor code without loading the full tree
+**/*.log | read | errors-only | max_matches=80,before=2,after=6 | Return error regions only
+**/*.min.js | read | symbol-only | max_matches=20 | Search symbols instead of loading minified code
+**/* | read | limit | max_lines=500,max_bytes=131072 | Bound large reads
+

@@ -1,0 +1,15 @@
+{
+  "target_id": "claude-code-vscode",
+  "case": "block-partial",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "operation": "read",
+    "resource": "logs/build.log"
+  },
+  "expected": {
+    "decision": "PARTIAL_BLOCK",
+    "original_operation_executes": false,
+    "bounded_output": true
+  }
+}

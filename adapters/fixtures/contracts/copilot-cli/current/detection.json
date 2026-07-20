@@ -1,0 +1,18 @@
+{
+  "target_id": "copilot-cli",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [
+      "copilot"
+    ],
+    "markers": [
+      "copilot-cli"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

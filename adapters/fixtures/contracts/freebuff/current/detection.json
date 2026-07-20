@@ -1,0 +1,18 @@
+{
+  "target_id": "freebuff",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [
+      "freebuff"
+    ],
+    "markers": [
+      "freebuff"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

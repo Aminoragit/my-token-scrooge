@@ -1,0 +1,19 @@
+{
+  "target_id": "kimi-code-cli",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [
+      "kimi",
+      "kimi-code"
+    ],
+    "markers": [
+      "kimi-code-cli"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

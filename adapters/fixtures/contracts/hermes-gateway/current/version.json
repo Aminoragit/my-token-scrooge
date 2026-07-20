@@ -1,0 +1,13 @@
+{
+  "target_id": "hermes-gateway",
+  "case": "version",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "version_output": "unknown"
+  },
+  "expected": {
+    "capability_grade": "UNVERIFIED",
+    "mode": "SHADOW"
+  }
+}

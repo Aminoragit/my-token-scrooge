@@ -1,0 +1,13 @@
+{
+  "target_id": "factory-droid-cli",
+  "case": "malformed",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "payload": "{"
+  },
+  "expected": {
+    "decision": "SAFE_ERROR",
+    "original_operation_executes": false
+  }
+}

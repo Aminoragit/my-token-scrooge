@@ -1,0 +1,18 @@
+{
+  "target_id": "factory-droid-cli",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [
+      "droid"
+    ],
+    "markers": [
+      "factory-droid-cli"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

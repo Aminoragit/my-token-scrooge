@@ -1,0 +1,18 @@
+{
+  "target_id": "gemini-cli",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [
+      "gemini"
+    ],
+    "markers": [
+      "gemini-cli"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

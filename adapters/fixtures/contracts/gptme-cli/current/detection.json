@@ -1,0 +1,18 @@
+{
+  "target_id": "gptme-cli",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [
+      "gptme"
+    ],
+    "markers": [
+      "gptme-cli"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

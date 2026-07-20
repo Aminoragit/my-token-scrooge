@@ -1,0 +1,18 @@
+{
+  "target_id": "codex-cli",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [
+      "codex"
+    ],
+    "markers": [
+      "codex-cli"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

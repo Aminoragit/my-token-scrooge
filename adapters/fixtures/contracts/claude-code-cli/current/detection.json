@@ -1,0 +1,18 @@
+{
+  "target_id": "claude-code-cli",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [
+      "claude"
+    ],
+    "markers": [
+      "claude-code"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

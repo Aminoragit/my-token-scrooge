@@ -1,0 +1,10 @@
+/target/
+/node_modules/
+/benchmarks/results/
+/.agents/
+/.mts/
+*.log
+*.tmp
+*.tgz
+*.db
+.DS_Store

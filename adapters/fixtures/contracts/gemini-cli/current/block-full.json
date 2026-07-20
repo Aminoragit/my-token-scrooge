@@ -1,0 +1,14 @@
+{
+  "target_id": "gemini-cli",
+  "case": "block-full",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "operation": "read",
+    "resource": "node_modules/package/index.js"
+  },
+  "expected": {
+    "decision": "FULL_BLOCK",
+    "original_operation_executes": false
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "target_id": "windsurf-cascade",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [
+      "windsurf"
+    ],
+    "markers": [
+      "windsurf-cascade"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "target_id": "swe-agent",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [
+      "sweagent",
+      "swe-agent"
+    ],
+    "markers": [
+      "swe-agent"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

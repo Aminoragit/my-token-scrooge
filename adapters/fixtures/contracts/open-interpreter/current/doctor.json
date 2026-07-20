@@ -1,0 +1,14 @@
+{
+  "target_id": "open-interpreter",
+  "case": "doctor",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {},
+  "expected": {
+    "detection": "UNVERIFIED",
+    "version": "unknown",
+    "integration": "UNVERIFIED",
+    "policy_files": "not installed",
+    "recommended_mode": "SHADOW"
+  }
+}

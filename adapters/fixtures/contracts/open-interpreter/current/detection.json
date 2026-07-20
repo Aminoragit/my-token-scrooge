@@ -1,0 +1,18 @@
+{
+  "target_id": "open-interpreter",
+  "case": "detection",
+  "synthetic": true,
+  "live_verified": false,
+  "input": {
+    "commands": [
+      "interpreter"
+    ],
+    "markers": [
+      "open-interpreter"
+    ]
+  },
+  "expected": {
+    "status": "UNVERIFIED",
+    "modifies_files": false
+  }
+}

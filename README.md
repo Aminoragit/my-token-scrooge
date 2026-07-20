@@ -64,7 +64,10 @@ billing measurements. See the [sanitized benchmark summary](docs/benchmark-summa
 
 ## Installation
 
-Until the first signed GitHub release and npm publication are complete, build
+Signed preview binaries and their verification bundles are available in the
+[v0.1.0 GitHub release](https://github.com/Aminoragit/my-token-scrooge/releases/tag/v0.1.0).
+The npm packages are not published yet. See the
+[publishing guide](docs/publishing.md) for signature verification, or build
 from a cloned checkout with Rust 1.85 or later.
 
 ### macOS and Linux

@@ -12,6 +12,7 @@ Current decision: **NO-GO for general availability**.
 - Claude Code CLI 2.1.197 is installed but organization policy disables subscription access; Antigravity CLI (`agy`) is unavailable, so both remain UNVERIFIED/SHADOW
 - Recoverable fan-out file transactions, physical per-target policies, project overlays, and last-known-valid fallback
 - SQLite state, CLI, validated Ratatui policy editor, npm launcher, and English-only gate
+- Signed v0.1.0 preview binaries and platform tarballs for six targets, SHA-256 checksums, Sigstore bundles, and GitHub build provenance
 - 64 UNVERIFIED/SHADOW adapter manifests and 704 contract fixture cases
 - Generated support matrix, CI checks, setup/doctor/simulation smoke flow, and local benchmark smoke suite
 
@@ -52,10 +53,11 @@ are rerun.
 - FULL BLOCK false-positive rate below 1 percent
 - Median retry amplification no greater than 1.10
 - Representative median net token savings of at least 25 percent
-- Signed binaries, checksums, provenance, and SBOM from the release environment
+- SBOM from the release environment; platform-native Authenticode and Apple notarization remain separate if required
 - Recorded 30-second retry demo, two-minute install video, and final TUI screenshots
 
 Registry maxima are planning bounds, not verified claims. Unknown versions are
 classified UNVERIFIED and new installations start in SHADOW; promotion should
-wait for current official contracts and real smoke tests. No signing,
-publishing, deployment, or GA claim is authorized by this local evidence.
+wait for current official contracts and real smoke tests. The signed v0.1.0
+preview artifacts are published. npm publication and any GA claim remain
+unauthorized by this evidence.

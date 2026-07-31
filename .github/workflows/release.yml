@@ -54,13 +54,28 @@ jobs:
           package-manager-cache: false
       - name: Validate tag version
         run: node -e "const expected = 'v' + require('./package.json').version; if (process.env.GITHUB_REF_NAME !== expected) throw new Error('Expected tag ' + expected);"
-      - name: Build and smoke test
-        run: cargo run --release --locked --target ${{ matrix.target }} --bin mts -- --version
+      - name: Build auditable binary
+        run: |
+          cargo install cargo-auditable --version 0.7.4 --locked
+          cargo auditable build --release --locked --target ${{ matrix.target }} --bin mts
+          node -e "const result = require('child_process').spawnSync(process.argv[1], ['--version'], { stdio: 'inherit' }); process.exit(result.status ?? 1);" target/${{ matrix.target }}/release/${{ matrix.binary }}
       - name: Stage release files
         run: |
           node scripts/stage-platform-package.mjs ${{ matrix.platform }} target/${{ matrix.target }}/release/${{ matrix.binary }} npm/platform-packages/${{ matrix.platform }}
           node -e "const fs = require('fs'); fs.mkdirSync('dist'); fs.copyFileSync(process.argv[1], process.argv[2]);" target/${{ matrix.target }}/release/${{ matrix.binary }} dist/mts-${{ matrix.platform }}${{ startsWith(matrix.platform, 'win32-') && '.exe' || '' }}
           npm pack npm/platform-packages/${{ matrix.platform }} --pack-destination dist
+      - name: Test packaged install and uninstall
+        run: node scripts/package-smoke.mjs ${{ matrix.platform }} dist
+      - uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610 # v0.24.0
+        with:
+          file: dist/mts-${{ matrix.platform }}${{ startsWith(matrix.platform, 'win32-') && '.exe' || '' }}
+          format: cyclonedx-json
+          output-file: dist/mts-${{ matrix.platform }}.cdx.json
+          syft-version: v1.44.0
+          upload-artifact: false
+          upload-release-assets: false
+      - name: Validate SBOM
+        run: node -e "const bom = require('./dist/mts-${{ matrix.platform }}.cdx.json'); if (bom.bomFormat !== 'CycloneDX' || !bom.components?.some(({ name }) => name === 'clap')) throw new Error('Incomplete CycloneDX SBOM');"
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: release-${{ matrix.platform }}

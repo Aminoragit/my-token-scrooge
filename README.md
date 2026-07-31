@@ -62,6 +62,19 @@ four-bytes-per-token estimate is **524,067 tokens avoided**, and protected edits
 were prevented **2/2**. These are low-confidence byte-based estimates, not API
 billing measurements. See the [sanitized benchmark summary](docs/benchmark-summary.md).
 
+The completed 20-task live Codex A/B run shows the distinction between blocking
+waste at the hook and reducing the model's end-to-end token use:
+
+| Metric | Without MTS | ENFORCE | Paired result |
+|---|---:|---:|---:|
+| Task success | 19/20 (95%) | 19/20 (95%) | 0 pp regression |
+| Median tool calls | 7 | 4.5 | 0.545 ratio (45.5% fewer) |
+| Median total tokens per arm | 218,086 | 216,569 | -9.00% median paired savings |
+| Median wall time | 123.0 s | 126.3 s | — |
+
+The token gate therefore remains a **fail** even though tool use fell and task
+success did not regress. No GA claim is made from these results.
+
 ## Installation
 
 Signed preview binaries and their verification bundles are available in the

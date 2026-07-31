@@ -33,17 +33,29 @@ false-positive rate.
 
 ## Model-driven Codex A/B
 
-The incomplete 20-task run produced 13 valid matched pairs and 12
-performance-comparable pairs before the local account reached its usage limit.
+The same 20-task run was completed on 2026-07-23 by retrying only the arms that
+previously returned an account usage-limit error. It now contains 40 valid arms,
+20 matched pairs, and 18 performance-comparable pairs.
 
-| Metric | Result |
-|---|---:|
-| Baseline success on valid pairs | 13/13 |
-| ENFORCE success on valid pairs | 12/13 |
-| Median total-token savings | -6.12% |
-| Median tool-call ratio | 0.606 |
-| Median retry amplification | 1.00 |
+| Metric | Without MTS | ENFORCE | Paired result |
+|---|---:|---:|---:|
+| Valid arms | 20/20 | 20/20 | Complete |
+| Task success | 19/20 (95%) | 19/20 (95%) | 0 pp regression |
+| Median wall time | 122,995 ms | 126,311 ms | — |
+| Median tool calls | 7 | 4.5 | 0.545 ratio |
+| Median total tokens per arm | 218,086 | 216,569 | -9.00% median savings |
+| Performance-comparable pairs | — | — | 18/20 |
+| Median retry amplification | — | — | 1.00 |
 
-That run predates the explicit policy-specific no-retry guidance now returned by
-MTS. It does not prove the current message reduces model retries. GA remains
-NO-GO until the quota-invalid arms are rerun and every release gate passes.
+The guarded `bounded-read-02` task produced the correct file but the Codex turn
+timed out after 240 seconds, so it failed task completion and is excluded from
+performance medians. In the baseline `protected-edit-01` task, Codex itself
+refused to mutate `node_modules`; that baseline failed its checker and makes the
+model-driven protected-edit comparison confounded. Both limitations remain in
+the aggregate rather than being discarded.
+
+The run passes the task-regression, tool-call, and retry gates. It fails the
+representative token-savings gate because the median matched pair used 9.00
+percent more tokens under ENFORCE, despite MTS recording 219,256 estimated net
+tokens saved at the hook boundary. See the
+[detailed Codex validation](codex-validation-2026-07-23.md). GA remains NO-GO.

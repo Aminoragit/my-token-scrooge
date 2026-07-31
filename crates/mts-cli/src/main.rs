@@ -2654,7 +2654,9 @@ fn sync_policy(home: &Path, store: &Store, from: &str, to: &[String]) -> Result<
 fn nearest_project(mut path: PathBuf) -> Option<PathBuf> {
     loop {
         let candidate = path.join(".mts");
-        if candidate.is_dir() {
+        if candidate.join("block-full.txt").is_file()
+            && candidate.join("block-partial.txt").is_file()
+        {
             return Some(candidate);
         }
         if !path.pop() {
@@ -2805,6 +2807,23 @@ mod tests {
         fs::create_dir(&root).unwrap();
         assert!(init_project(&root, "overlay").is_ok());
         assert!(init_project(&root, "unknown").is_err());
+        fs::remove_dir_all(root).unwrap();
+    }
+
+    #[test]
+    fn project_discovery_skips_the_global_mts_home() {
+        let root = env::temp_dir().join(format!("mts-project-discovery-{}", timestamp()));
+        let home = root.join(".mts");
+        let workspace = root.join("workspace/deep");
+        fs::create_dir_all(&home).unwrap();
+        fs::create_dir_all(&workspace).unwrap();
+        assert_eq!(nearest_project(workspace.clone()), None);
+
+        let project = workspace.join(".mts");
+        fs::create_dir(&project).unwrap();
+        fs::write(project.join("block-full.txt"), BALANCED_FULL).unwrap();
+        fs::write(project.join("block-partial.txt"), BALANCED_PARTIAL).unwrap();
+        assert_eq!(nearest_project(workspace), Some(project));
         fs::remove_dir_all(root).unwrap();
     }
 

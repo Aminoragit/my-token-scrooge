@@ -1,11 +1,11 @@
-# Codex CLI validation - 2026-07-16
+# Codex CLI validation - 2026-07-23
 
 ## Environment
 
 - Codex CLI: `0.144.1`
 - Observed model: `gpt-5.5`
 - Host: Windows x64
-- MTS: local debug build from this workspace
+- MTS: local auditable release build of 0.1.0
 - Codex sandbox: `workspace-write`
 - Approval policy: `never`
 - User Codex configuration: unchanged
@@ -67,44 +67,34 @@ benchmark-results directory. The public aggregate is in the
 Baseline disabled hooks; ENFORCE enabled the real project hook. Arm order
 alternated by task and both arms used identical fixture hashes.
 
-The run is incomplete because the local ChatGPT account hit its Codex usage
-limit. Thirteen arms are marked `codex_usage_limit` and excluded from product
-metrics. They remain in the raw evidence and are not counted as failures.
+The local account's quota later became available, and on 2026-07-23 the runner
+retried only the 13 externally invalid arms without changing prompts or
+fixtures. All 40 arms are now valid. Across the 20 ENFORCE arms, the MTS ledger
+recorded 941,850 avoided-output bytes, 70,195 replacement-output bytes, 1,283
+retry-overhead bytes, and an estimated 219,256 net tokens saved at the hook
+boundary.
 
-Across the 14 valid ENFORCE arms, the MTS ledger recorded 885,837 avoided bytes,
-52,185 replacement bytes, and an estimated 208,819 net tokens saved at the hook
-boundary. That byte-level saving did not translate into end-to-end token saving
-in the completed pairs, as shown below. This model-driven run predates the
-explicit no-retry guidance and must be rerun before claiming that the new
-message reduces retries or reasoning.
+| Evidence | Without MTS | ENFORCE | Paired result and gate |
+|---|---:|---:|---:|
+| Valid arms | 20/20 | 20/20 | complete |
+| Task success | 19/20 (95%) | 19/20 (95%) | pass: 0 pp regression |
+| Median wall time | 122,995 ms | 126,311 ms | informational |
+| Median tool calls | 7 | 4.5 | pass: 0.545 paired ratio |
+| Median total tokens per arm | 218,086 | 216,569 | fail: -9.00% paired savings |
+| Performance-comparable pairs | — | — | 18/20 |
+| Median retry amplification | — | — | pass: 1.00 |
 
-| Evidence | Result | Gate |
-|---|---:|---:|
-| Valid matched pairs | 13 of 20 | incomplete |
-| Performance-comparable pairs | 12 | incomplete |
-| Baseline success on valid pairs | 13/13 (100%) | reference |
-| ENFORCE success on valid pairs | 12/13 (92.31%) | fail: regression 7.69 pp |
-| Median token savings | -6.12% | fail: at least 25% required |
-| Median tool-call ratio | 0.606 | pass: no more than 1.10 |
-| Median retry amplification | 1.00 | pass: no more than 1.10 |
-
-The ENFORCE failure completed the fixture checker but the Codex turn did not
-finish within 240 seconds after repeated Windows command-quoting retries. It is
-retained as a guarded-arm completion failure. Its incomplete token accounting is
-excluded from performance medians.
-
-After Codex quota is available, retry only externally invalid arms without
-changing prompts or fixtures:
-
-```powershell
-$env:MTS_BINARY = "$PWD\target\release\mts.exe"
-node scripts\codex-ab-benchmark.mjs --resume codex-20-<run-id> --retry-infrastructure --timeout-ms 240000
-```
+The guarded `bounded-read-02` arm wrote the correct answer but Codex did not
+finish within 240 seconds, so task completion failed and its incomplete token
+accounting is excluded from the performance medians. The baseline
+`protected-edit-01` arm exited normally but Codex itself refused to mutate
+`node_modules`; its checker failed, and this makes the model-driven protected
+edit comparison confounded. Both outcomes are retained.
 
 ## Decision
 
 The local Codex tool boundary is implemented and directly verified for shell
-and `apply_patch`. Codex-only GA remains **NO-GO**: the representative run is
-incomplete, the available paired sample fails the success and token-savings
-gates, a below-1% FULL BLOCK false-positive rate is not statistically
-established, and signed distribution evidence is absent.
+and `apply_patch`. Codex-only GA remains **NO-GO**: the completed representative
+run fails the token-savings gate, a below-1% FULL BLOCK false-positive rate is
+not statistically established, and the six-target release workflow with SBOMs
+has not yet produced a new signed release from these changes.

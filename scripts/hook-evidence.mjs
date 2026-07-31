@@ -83,6 +83,7 @@ for (const scenario of scenarios) {
 run(["setup", "--targets", "codex-cli", "--yes", "--codex-home", join(runRoot, "codex-home")]);
 run(["mode", "warn"]);
 run(["mode", "enforce"]);
+run(["doctor"]);
 
 const rows = [];
 for (const scenario of scenarios) {
@@ -154,6 +155,11 @@ totals.output_reduction_percent = 100
   * (1 - totals.protected_read_enforced_context_bytes / totals.protected_read_baseline_bytes);
 
 const version = run(["--version"]);
+run(["uninstall", "--targets", "codex-cli"]);
+const codexHooks = join(runRoot, "codex-home", "hooks.json");
+if (existsSync(codexHooks) && readFileSync(codexHooks, "utf8").includes("mts hook codex-cli")) {
+  throw new Error("Codex uninstall left the MTS hook installed");
+}
 const result = {
   schema_version: 1,
   created_at: new Date().toISOString(),

@@ -25,35 +25,36 @@ reduced protected-read context by 99.96 percent, conservatively estimated
 source-read control was intercepted and incurred 426 bytes of overhead, so the
 result does not establish the required below-1-percent false-positive rate.
 
-The incomplete 20-task aggregate is recorded in the
+The completed 20-task aggregate is recorded in the
 [sanitized benchmark summary](benchmark-summary.md).
-It has 13 valid matched pairs and 12 performance-comparable pairs; 13 individual
-arms are excluded because Codex returned an account usage-limit error.
-The 14 valid ENFORCE arms recorded 885,837 avoided bytes and 52,185 replacement
-bytes, but model retries and reasoning eliminated the byte-level advantage in
-the paired total-token result. That run predates the new explicit no-retry
-guidance, so its retry effect remains unverified until the quota-invalid arms
-are rerun.
+It has 20 valid matched pairs and 18 performance-comparable pairs. ENFORCE
+recorded 941,850 avoided-output bytes, 70,195 replacement-output bytes, 1,283
+retry-overhead bytes, and an estimated 219,256 net tokens saved at the hook
+boundary. Model reasoning eliminated that byte-level advantage in the paired
+end-to-end token result.
 
-- Paired task success regression: 7.69 percentage points - **fail**
-- Median net token savings: -6.12 percent - **fail**
-- Median tool-call ratio: 0.606 - **pass**
+- Paired task success regression: 0 percentage points - **pass**
+- Median net token savings: -9.00 percent - **fail**
+- Median tool-call ratio: 0.545 - **pass**
 - Median retry amplification: 1.00 - **pass**
 - FULL BLOCK false-positive rate below 1 percent - **not established**
 
+One guarded task wrote the expected answer but timed out before Codex completed.
+One baseline protected-edit task was refused by Codex itself, so that edit case
+does not isolate MTS's incremental effect.
+
 ## Evidence still required before GA
 
-- Complete all 20 paired Codex tasks by retrying only quota-invalid arms
 - Live-verify Claude Code CLI and Antigravity CLI hook installation, dispatch, and uninstall on hosts with `claude` and `agy`
 - Verify 42 current upstream targets end to end
 - Prove 12 targets STRICT or STRONG at real pre-tool boundaries
-- Clean install/uninstall tests for all six published platform packages
+- Execute and retain the release-workflow clean install/uninstall result for all six platform packages
 - Task and test success regression no greater than 2 percentage points
 - Median tool-call increase no greater than 10 percent
 - FULL BLOCK false-positive rate below 1 percent
 - Median retry amplification no greater than 1.10
 - Representative median net token savings of at least 25 percent
-- SBOM from the release environment; platform-native Authenticode and Apple notarization remain separate if required
+- Execute and retain the release-workflow CycloneDX SBOMs; platform-native Authenticode and Apple notarization remain separate if required
 - Recorded 30-second retry demo, two-minute install video, and final TUI screenshots
 
 Registry maxima are planning bounds, not verified claims. Unknown versions are

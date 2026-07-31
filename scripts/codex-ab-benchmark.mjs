@@ -14,7 +14,7 @@ import {
 } from "node:fs";
 import { createHash, randomUUID } from "node:crypto";
 import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
-import { spawn } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -131,6 +131,31 @@ function resolveCommand(value, candidates, fallback) {
     return isAbsolute(value) || value.includes("/") || value.includes("\\") ? resolve(repoRoot, value) : value;
   }
   return candidates.find(existsSync) || fallback;
+}
+
+function resolveWindowsNativeExecutable(command) {
+  if (process.platform !== "win32" || command.toLowerCase().endsWith(".exe")) return command;
+  if (isAbsolute(command) || command.includes("/") || command.includes("\\")) {
+    return existsSync(`${command}.exe`) ? `${command}.exe` : command;
+  }
+  const appCodex = process.env.LOCALAPPDATA
+    ? join(process.env.LOCALAPPDATA, "OpenAI", "Codex", "bin", "codex.exe")
+    : null;
+  if (command.toLowerCase() === "codex" && appCodex && existsSync(appCodex)) return appCodex;
+  const lookup = spawnSync("where.exe", [command], { encoding: "utf8", windowsHide: true });
+  if (lookup.status !== 0) return command;
+  return lookup.stdout.split(/\r?\n/).find((path) => path.toLowerCase().endsWith(".exe")) || command;
+}
+
+function resolveWindowsCodexJs() {
+  if (process.platform !== "win32") return null;
+  const lookup = spawnSync("where.exe", ["codex"], { encoding: "utf8", windowsHide: true });
+  if (lookup.status !== 0) return null;
+  for (const command of lookup.stdout.split(/\r?\n/).filter(Boolean)) {
+    const candidate = join(dirname(command), "node_modules", "@openai", "codex", "bin", "codex.js");
+    if (existsSync(candidate)) return candidate;
+  }
+  return null;
 }
 
 function write(path, contents) {
@@ -516,13 +541,17 @@ async function main() {
     throw new Error(`Resume directory is missing or unsafe: ${runRoot}`);
   }
   mkdirSync(runRoot, { recursive: true });
-  const codexJs = process.env.CODEX_JS ? resolveCommand(process.env.CODEX_JS, [], "") : null;
+  const codexJs = process.env.CODEX_JS
+    ? resolveCommand(process.env.CODEX_JS, [], "")
+    : process.env.CODEX_BINARY ? null : resolveWindowsCodexJs();
   const commands = {
     mts: resolveCommand(process.env.MTS_BINARY, [
       join(repoRoot, "target", "release", process.platform === "win32" ? "mts.exe" : "mts"),
       join(repoRoot, "target", "debug", process.platform === "win32" ? "mts.exe" : "mts")
     ], "mts"),
-    codex: codexJs ? process.execPath : resolveCommand(process.env.CODEX_BINARY, [], "codex"),
+    codex: codexJs
+      ? process.execPath
+      : resolveWindowsNativeExecutable(resolveCommand(process.env.CODEX_BINARY, [], "codex")),
     codex_args: codexJs ? [codexJs] : []
   };
   const metadataEnv = { ...process.env, MTS_HOME: join(runRoot, "metadata-mts-home"), MTS_BINARY: commands.mts, NO_COLOR: "1" };

@@ -2,8 +2,9 @@
 
 The GitHub release workflow builds all six native targets from a `vX.Y.Z` tag.
 It publishes the raw binaries, ready-to-publish platform package tarballs,
-SHA-256 checksums, Sigstore bundles, and GitHub build provenance. It does not
-provide Windows Authenticode signing or Apple notarization.
+target-specific CycloneDX SBOMs, SHA-256 checksums, Sigstore bundles, and
+GitHub build provenance. It does not provide Windows Authenticode signing or
+Apple notarization.
 
 ## 1. Create the signed GitHub release
 
@@ -50,6 +51,9 @@ GitHub provenance can also be verified with:
 gh attestation verify my-token-scrooge-linux-x64-0.1.0.tgz \
   --repo Aminoragit/my-token-scrooge
 ```
+
+Each `mts-<platform>.cdx.json` SBOM has its own Sigstore bundle and is verified
+with the same `cosign verify-blob` command as a binary.
 
 ## 2. Publish the npm packages manually
 
